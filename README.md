@@ -15,15 +15,25 @@ In the contrib folder, I collected some useful 3rd-party C++ code related to g2o
 * [C++ requirements](#g2oRequirements).   
 ([pybind11](https://github.com/pybind/pybind11) is also required, but it's built in this repository, you don't need to install) 
 
+## pre-requisites for mac:
+```
+brew install cmake
+brew install eigen
+brew install suite-sparse
+```
+
+## for amazonlinux2 (from epel):
+
+```
+cmake3 
+eigen3-devel 
+suitesparse-devel 
+blas-devel 
+lapack-devel
+```
 
 ## Installation
 ```
-
-# pre-requisites for mac:
-# brew install cmake
-# brew install eigen
-# brew install suite-sparse
-
 git clone https://github.com/uoip/g2opy.git
 cd g2opy
 mkdir build
