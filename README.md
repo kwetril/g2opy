@@ -18,6 +18,12 @@ In the contrib folder, I collected some useful 3rd-party C++ code related to g2o
 
 ## Installation
 ```
+
+# pre-requisites for mac:
+# brew install cmake
+# brew install eigen
+# brew install suite-sparse
+
 git clone https://github.com/uoip/g2opy.git
 cd g2opy
 mkdir build
