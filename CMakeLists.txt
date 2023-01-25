@@ -40,6 +40,9 @@ IF (BUILD_SHARED_LIBS)
   SET (G2O_LIB_TYPE SHARED)
 ENDIF()
 
+OPTION (BUILD_PYTHON_LIBS "Build Python bindings" ON)
+OPTION (BUILD_JAVA_LIBS "Build JNI code for Java bindings" OFF)
+
 # There seems to be an issue with MSVC8
 # see http://eigen.tuxfamily.org/bz/show_bug.cgi?id=83
 if(MSVC90)
@@ -266,7 +269,7 @@ SET(g2o_C_FLAGS "${g2o_C_FLAGS} -fPIC")   # added for python binding
 SET(g2o_CXX_FLAGS "${g2o_CXX_FLAGS} -fPIC")   # added for python binding
 
 # C++11 support
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # specifying compiler flags
@@ -294,5 +297,11 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/g2o/config.h DESTINATION ${CMAKE_INSTALL_PRE
 ADD_SUBDIRECTORY(EXTERNAL)
 ADD_SUBDIRECTORY(g2o)
 
-ADD_SUBDIRECTORY(contrib)   # added for python binding
-ADD_SUBDIRECTORY(python)   # added for python binding
+IF (BUILD_PYTHON_LIBS)
+  ADD_SUBDIRECTORY(contrib)   # added for python binding
+  ADD_SUBDIRECTORY(python)   # added for python binding
+ENDIF()
+
+IF (BUILD_JAVA_LIBS)
+  ADD_SUBDIRECTORY(java)   # added for java binding
+ENDIF()
