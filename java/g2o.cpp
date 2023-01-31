@@ -53,49 +53,49 @@ JNIEXPORT jlong JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeCreateOptimiza
 JNIEXPORT jlong JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeCreateSparseOptimizer
   (JNIEnv *, jclass, jlong optimizationAlgo)
 {
-  std::cout << "nativeCreateSparseOptimizer 1" << std::endl;
+  std::cerr << "nativeCreateSparseOptimizer 1" << std::endl;
   auto optimizer = std::make_unique<g2o::SparseOptimizer>();
-  std::cout << "nativeCreateSparseOptimizer 2" << std::endl;
+  std::cerr << "nativeCreateSparseOptimizer 2" << std::endl;
   auto optimizationAlgoPtr = reinterpret_cast<g2o::OptimizationAlgorithm*>(optimizationAlgo);
-  std::cout << "nativeCreateSparseOptimizer 3" << std::endl;
+  std::cerr << "nativeCreateSparseOptimizer 3" << std::endl;
   optimizer->setAlgorithm(optimizationAlgoPtr);
-  std::cout << "nativeCreateSparseOptimizer 4" << std::endl;
+  std::cerr << "nativeCreateSparseOptimizer 4" << std::endl;
   return reinterpret_cast<jlong>(optimizer.release());
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeDestroySparseOptimizer
   (JNIEnv *, jclass, jlong optimizer, jlong optimizationAlgo)
 {
-  std::cout << "nativeDestroySparseOptimizer 1" << std::endl;
+  std::cerr << "nativeDestroySparseOptimizer 1" << std::endl;
   auto optimizationAlgoPtr = reinterpret_cast<g2o::OptimizationAlgorithm*>(optimizationAlgo);
-  std::cout << "nativeDestroySparseOptimizer 2" << std::endl;
+  std::cerr << "nativeDestroySparseOptimizer 2" << std::endl;
   delete optimizationAlgoPtr;
 
-  std::cout << "nativeDestroySparseOptimizer 3" << std::endl;
+  std::cerr << "nativeDestroySparseOptimizer 3" << std::endl;
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
-  std::cout << "nativeDestroySparseOptimizer 4" << std::endl;
+  std::cerr << "nativeDestroySparseOptimizer 4" << std::endl;
   optimizerPtr->clear();
-  std::cout << "nativeDestroySparseOptimizer 5" << std::endl;
+  std::cerr << "nativeDestroySparseOptimizer 5" << std::endl;
   delete optimizerPtr;
-  std::cout << "nativeDestroySparseOptimizer 6" << std::endl;
+  std::cerr << "nativeDestroySparseOptimizer 6" << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeOptimize
   (JNIEnv *, jclass, jlong optimizer, jint iterations)
 {
-  std::cout << "nativeOptimize 1" << std::endl;
+  std::cerr << "nativeOptimize 1" << std::endl;
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
-  std::cout << "nativeOptimize 2" << std::endl;
+  std::cerr << "nativeOptimize 2" << std::endl;
   optimizerPtr->initializeOptimization();
-  std::cout << "nativeOptimize 3" << std::endl;
+  std::cerr << "nativeOptimize 3" << std::endl;
   optimizerPtr->optimize(iterations);
-  std::cout << "nativeOptimize 4" << std::endl;
+  std::cerr << "nativeOptimize 4" << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddVertexSE2
   (JNIEnv *, jclass, jlong optimizer, jlong vertexId, jdouble x, jdouble y, jdouble theta, jboolean isFixed)
 {
-  std::cout << "nativeAddVertexSE2 1" << std::endl;
+  std::cerr << "nativeAddVertexSE2 1" << std::endl;
   auto* vertex = new g2o::VertexSE2;
   vertex->setId(vertexId);
   vertex->setEstimate(g2o::SE2(x, y, theta));
@@ -105,13 +105,13 @@ JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddVertexSE2
 
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   optimizerPtr->addVertex(vertex);
-  std::cout << "nativeAddVertexSE2 2" << std::endl;
+  std::cerr << "nativeAddVertexSE2 2" << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddVertexXY
   (JNIEnv *, jclass, jlong optimizer, jlong vertexId, jdouble x, jdouble y, jboolean isFixed)
 {
-  std::cout << "nativeAddVertexXY 1" << std::endl;
+  std::cerr << "nativeAddVertexXY 1" << std::endl;
   auto* vertex = new g2o::VertexPointXY;
   vertex->setId(vertexId);
   vertex->setEstimate(Eigen::Vector2d(x, y));
@@ -121,13 +121,13 @@ JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddVertexXY
 
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   optimizerPtr->addVertex(vertex);
-  std::cout << "nativeAddVertexXY 2" << std::endl;
+  std::cerr << "nativeAddVertexXY 2" << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddEdgeSE2SE2
   (JNIEnv* env, jclass, jlong optimizer, jlong fromVertex, jlong toVertex, jdouble relativeX, jdouble relativeY, jdouble relativeTheta, jdoubleArray infMatrix)
 {
-  std::cout << "nativeAddEdgeSE2SE2 1" << std::endl;
+  std::cerr << "nativeAddEdgeSE2SE2 1" << std::endl;
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   auto* edge = new g2o::EdgeSE2;
   edge->vertices()[0] = optimizerPtr->vertex(fromVertex);
@@ -149,13 +149,13 @@ JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddEdgeSE2SE2
   edge->setInformation(information);
 
   optimizerPtr->addEdge(edge);
-  std::cout << "nativeAddEdgeSE2SE2 2" << std::endl;
+  std::cerr << "nativeAddEdgeSE2SE2 2" << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddEdgeSE2XY
   (JNIEnv* env, jclass, jlong optimizer, jlong fromVertex, jlong toVertex, jdouble relativeX, jdouble relativeY, jdoubleArray infMatrix)
 {
-  std::cout << "nativeAddEdgeSE2XY 1" << std::endl;
+  std::cerr << "nativeAddEdgeSE2XY 1" << std::endl;
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   auto* edge = new g2o::EdgeSE2PointXY;
   edge->vertices()[0] = optimizerPtr->vertex(fromVertex);
@@ -172,13 +172,13 @@ JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddEdgeSE2XY
   edge->setInformation(information);
 
   optimizerPtr->addEdge(edge);
-  std::cout << "nativeAddEdgeSE2XY 2" << std::endl;
+  std::cerr << "nativeAddEdgeSE2XY 2" << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddEdgeXYXY
   (JNIEnv* env, jclass, jlong optimizer, jlong fromVertex, jlong toVertex, jdouble relativeX, jdouble relativeY, jdoubleArray infMatrix)
 {
-  std::cout << "nativeAddEdgeXYXY 1" << std::endl;
+  std::cerr << "nativeAddEdgeXYXY 1" << std::endl;
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   auto* edge = new g2o::EdgePointXY;
   edge->vertices()[0] = optimizerPtr->vertex(fromVertex);
@@ -195,13 +195,13 @@ JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeAddEdgeXYXY
   edge->setInformation(information);
 
   optimizerPtr->addEdge(edge);
-  std::cout << "nativeAddEdgeXYXY 2" << std::endl;
+  std::cerr << "nativeAddEdgeXYXY 2" << std::endl;
 }
 
 JNIEXPORT jdoubleArray JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeGetPose
   (JNIEnv *env, jclass, jlong optimizer, jlong vertexId)
 {
-  std::cout << "nativeGetPose 1" << std::endl;
+  std::cerr << "nativeGetPose 1" << std::endl;
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   auto vertex = optimizerPtr->vertex(vertexId);
   double estimate[3];
@@ -211,6 +211,6 @@ JNIEXPORT jdoubleArray JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeGetPose
   jdoubleArray result = env->NewDoubleArray(resultSize);
   env->SetDoubleArrayRegion(result, 0, resultSize, estimate );
 
-  std::cout << "nativeGetPose 2" << std::endl;
+  std::cerr << "nativeGetPose 2" << std::endl;
   return result;
 }
