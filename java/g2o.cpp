@@ -62,8 +62,8 @@ JNIEXPORT jlong JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeCreateSparseOp
 JNIEXPORT void JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeDestroySparseOptimizer
   (JNIEnv *, jclass, jlong optimizer, jlong optimizationAlgo)
 {
-  auto optimizationAlgoPtr = reinterpret_cast<g2o::OptimizationAlgorithm*>(optimizationAlgo);
-  delete optimizationAlgoPtr;
+//  auto optimizationAlgoPtr = reinterpret_cast<g2o::OptimizationAlgorithm*>(optimizationAlgo);
+//  delete optimizationAlgoPtr;
 
   auto optimizerPtr = reinterpret_cast<g2o::SparseOptimizer*>(optimizer);
   optimizerPtr->clear();
