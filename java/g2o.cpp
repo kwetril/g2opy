@@ -20,33 +20,49 @@
 JNIEXPORT jlong JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeCreateOptimizationAlgo
   (JNIEnv *, jclass, jlong algoType, jlong solverType)
 {
+  std::cout << "nativeCreateOptimizationAlgo 1" << std::endl;
   typedef g2o::BlockSolver<g2o::BlockSolverTraits<-1, -1> > SlamBlockSolver;
   typedef g2o::LinearSolverEigen<SlamBlockSolver::PoseMatrixType> SlamLinearSolver;
 
   std::unique_ptr<SlamLinearSolver> solver;
+  std::cout << "nativeCreateOptimizationAlgo 2" << std::endl;
   switch (solverType) {
     case 1:
+      std::cout << "nativeCreateOptimizationAlgo 3" << std::endl;
       solver = std::make_unique<SlamLinearSolver>();
+      std::cout << "nativeCreateOptimizationAlgo 4" << std::endl;
       break;
     default:
+      std::cout << "nativeCreateOptimizationAlgo 5" << std::endl;
       std::cerr << "Bad solver type: " << solverType << std::endl;
+      std::cout << "nativeCreateOptimizationAlgo 6" << std::endl;
       exit(1);
   }
+  std::cout << "nativeCreateOptimizationAlgo 7" << std::endl;
 
   std::unique_ptr<SlamBlockSolver> blockSolver = std::make_unique<SlamBlockSolver>(std::move(solver));
+  std::cout << "nativeCreateOptimizationAlgo 8" << std::endl;
   g2o::OptimizationAlgorithm* algo = nullptr;
+  std::cout << "nativeCreateOptimizationAlgo 9" << std::endl;
   switch (algoType) {
     case 1:
+      std::cout << "nativeCreateOptimizationAlgo 10" << std::endl;
       algo = new g2o::OptimizationAlgorithmLevenberg(std::move(blockSolver));
+      std::cout << "nativeCreateOptimizationAlgo 11" << std::endl;
       break;
     case 2:
+      std::cout << "nativeCreateOptimizationAlgo 12" << std::endl;
       algo = new g2o::OptimizationAlgorithmGaussNewton(std::move(blockSolver));
+      std::cout << "nativeCreateOptimizationAlgo 13" << std::endl;
       break;
     default:
+      std::cout << "nativeCreateOptimizationAlgo 14" << std::endl;
       std::cerr << "Bad algo type: " << algoType << std::endl;
+      std::cout << "nativeCreateOptimizationAlgo 15" << std::endl;
       exit(1);
   }
 
+  std::cout << "nativeCreateOptimizationAlgo 16" << std::endl;
   return reinterpret_cast<jlong>(algo);
 }
 
