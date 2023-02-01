@@ -42,7 +42,7 @@ namespace g2o {
   BaseProperty::~BaseProperty(){}
 
   bool PropertyMap::addProperty(BaseProperty* p) {
-    std::cout << "PropertyMap::addProperty 1" << std::endl;
+    std::cout << "PropertyMap::addProperty 1!" << std::endl;
     std::cout << "PropertyMap::addProperty: " << p->name() << std::endl;
     std::pair<PropertyMapIterator,bool> result = _items.insert(make_pair(p->name(), p));
     std::cout << "PropertyMap::addProperty 2" << std::endl;

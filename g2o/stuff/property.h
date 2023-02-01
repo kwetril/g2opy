@@ -28,7 +28,7 @@
 #define G2O_PROPERTY_H_
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <sstream>
 
 #include "string_tools.h"
@@ -73,13 +73,13 @@ namespace g2o {
   /**
    * \brief a collection of properties mapping from name to the property itself
    */
-  class G2O_STUFF_API PropertyMap : protected std::map<std::string, BaseProperty*>
+  class G2O_STUFF_API PropertyMap
   {
     private:
-      std::map<std::string, BaseProperty*> _items;
+      std::unordered_map<std::string, BaseProperty*> _items;
 
     public:
-      typedef std::map<std::string, BaseProperty*>        BaseClass;
+      typedef std::unordered_map<std::string, BaseProperty*>        BaseClass;
       typedef BaseClass::iterator                         PropertyMapIterator;
       typedef BaseClass::const_iterator                   PropertyMapConstIterator;
 
@@ -144,11 +144,11 @@ namespace g2o {
 
       void writeToCSV(std::ostream& os) const;
 
-      using BaseClass::size;
-      using BaseClass::begin;
-      using BaseClass::end;
-      using BaseClass::iterator;
-      using BaseClass::const_iterator;
+//      using BaseClass::size;
+//      using BaseClass::begin;
+//      using BaseClass::end;
+//      using BaseClass::iterator;
+//      using BaseClass::const_iterator;
 
   };
 
