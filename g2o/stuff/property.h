@@ -75,6 +75,9 @@ namespace g2o {
    */
   class G2O_STUFF_API PropertyMap : protected std::map<std::string, BaseProperty*>
   {
+    private:
+      std::map<std::string, BaseProperty*> _items;
+
     public:
       typedef std::map<std::string, BaseProperty*>        BaseClass;
       typedef BaseClass::iterator                         PropertyMapIterator;
@@ -98,16 +101,16 @@ namespace g2o {
       template <typename P> 
       P* getProperty(const std::string& name_)
       {
-        PropertyMapIterator it=find(name_);
-        if (it==end())
+        PropertyMapIterator it=_items.find(name_);
+        if (it==_items.end())
           return 0;
         return dynamic_cast<P*>(it->second);
       }
       template <typename P> 
       const P* getProperty(const std::string& name_) const
       {
-        PropertyMapConstIterator it=find(name_);
-        if (it==end())
+        PropertyMapConstIterator it=_items.find(name_);
+        if (it==_items.end())
           return 0;
         return dynamic_cast<P*>(it->second);
       }
@@ -118,8 +121,8 @@ namespace g2o {
       template <typename P> 
       P* makeProperty(const std::string& name_, const typename P::ValueType& v)
       {
-        PropertyMapIterator it=find(name_);
-        if (it==end()){
+        PropertyMapIterator it=_items.find(name_);
+        if (it==_items.end()){
           P* p=new P(name_, v);
           addProperty(p);
           return p;

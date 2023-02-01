@@ -44,22 +44,22 @@ namespace g2o {
   bool PropertyMap::addProperty(BaseProperty* p) {
     std::cout << "PropertyMap::addProperty 1" << std::endl;
     std::cout << "PropertyMap::addProperty: " << p->name() << std::endl;
-    std::pair<PropertyMapIterator,bool> result = insert(make_pair(p->name(), p));
+    std::pair<PropertyMapIterator,bool> result = _items.insert(make_pair(p->name(), p));
     std::cout << "PropertyMap::addProperty 2" << std::endl;
     return result.second;
   }
 
   bool PropertyMap::eraseProperty(const std::string& name) {
-    PropertyMapIterator it=find(name);
-    if (it==end())
+    PropertyMapIterator it=_items.find(name);
+    if (it==_items.end())
       return false;
     delete it->second;
-    erase(it);
+    _items.erase(it);
     return true;
   }
 
   PropertyMap::~PropertyMap() {
-    for (PropertyMapIterator it=begin(); it!=end(); it++){
+    for (PropertyMapIterator it=_items.begin(); it!=_items.end(); it++){
       if (it->second)
         delete it->second;
     }
@@ -67,8 +67,8 @@ namespace g2o {
 
   bool PropertyMap::updatePropertyFromString(const std::string& name, const std::string& value)
   {
-    PropertyMapIterator it = find(name);
-    if (it == end())
+    PropertyMapIterator it = _items.find(name);
+    if (it == _items.end())
       return false;
     it->second->fromString(value);
     return true;
@@ -76,12 +76,12 @@ namespace g2o {
 
   void PropertyMap::writeToCSV(std::ostream& os) const
   {
-    for (PropertyMapConstIterator it=begin(); it!=end(); it++){
+    for (PropertyMapConstIterator it=_items.begin(); it!=_items.end(); it++){
       BaseProperty* p =it->second;
       os << p->name() << ", ";
     }
     os << std::endl;
-    for (PropertyMapConstIterator it=begin(); it!=end(); it++){
+    for (PropertyMapConstIterator it=_items.begin(); it!=_items.end(); it++){
       BaseProperty* p =it->second;
       os << p->toString() << ", ";
     }
