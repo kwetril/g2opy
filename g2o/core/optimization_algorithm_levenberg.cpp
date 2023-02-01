@@ -33,6 +33,8 @@
 #include "sparse_optimizer.h"
 #include "solver.h"
 #include "batch_stats.h"
+#include <iostream>
+
 using namespace std;
 
 namespace g2o {
@@ -45,8 +47,11 @@ namespace g2o {
     _tau = 1e-5;
     _goodStepUpperScale = 2./3.;
     _goodStepLowerScale = 1./3.;
+    std::cout << "OptimizationAlgorithmLevenberg 1" << std::endl;
     _userLambdaInit = _properties.makeProperty<Property<double> >("initialLambda", 0.);
+    std::cout << "OptimizationAlgorithmLevenberg 2" << std::endl;
     _maxTrialsAfterFailure = _properties.makeProperty<Property<int> >("maxTrialsAfterFailure", 10);
+    std::cout << "OptimizationAlgorithmLevenberg 3" << std::endl;
     _ni=2.;
     _levenbergIterations = 0;
   }

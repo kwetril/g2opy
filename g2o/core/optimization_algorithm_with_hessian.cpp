@@ -39,7 +39,9 @@ namespace g2o {
     OptimizationAlgorithm(),
     _solver(solver)
   {
+    std::cout << "OptimizationAlgorithmWithHessian 1" << std::endl;
     _writeDebug = _properties.makeProperty<Property<bool> >("writeDebug", true);
+    std::cout << "OptimizationAlgorithmWithHessian 2" << std::endl;
   }
 
   OptimizationAlgorithmWithHessian::~OptimizationAlgorithmWithHessian()

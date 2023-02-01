@@ -46,7 +46,7 @@ JNIEXPORT jlong JNICALL Java_com_mapbox_g2o_SparseOptimizer_nativeCreateOptimiza
   std::cout << "nativeCreateOptimizationAlgo 9" << std::endl;
   switch (algoType) {
     case 1:
-      std::cout << "nativeCreateOptimizationAlgo 10" << std::endl;
+      std::cout << "nativeCreateOptimizationAlgo 10 " << reinterpret_cast<long long>(blockSolver.get()) << std::endl;
       algo = new g2o::OptimizationAlgorithmLevenberg(std::move(blockSolver));
       std::cout << "nativeCreateOptimizationAlgo 11" << std::endl;
       break;
